@@ -21,6 +21,6 @@
 
     {
         "ParameterKey": "EcrRepositoryName",
-        "ParameterValue": "RemoveBackground"
+        "ParameterValue": "remove_background"
     }
 ]

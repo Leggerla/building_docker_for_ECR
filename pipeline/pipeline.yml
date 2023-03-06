@@ -15,7 +15,6 @@ Parameters:
   GithubRepository:
     Type: String
     Description: "Github repository name"
-
   EcrRepositoryName:
     Type: String
     Description: "ECR repository name"
