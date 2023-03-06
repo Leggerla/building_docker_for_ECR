@@ -109,7 +109,7 @@ Resources:
         Type: "CODEPIPELINE"
         BuildSpec: pipeline/buildspec.yml
 
-  LambdaECR:
+  EcrRepository:
     Type: AWS::ECR::Repository
     Description: ECR to hold image of Lambda function
     Properties:
@@ -127,9 +127,6 @@ Resources:
             Action:
               - "ecr:BatchGetImage"
               - "ecr:GetDownloadUrlForLayer"
-      Tags:
-        - Key: Name
-          Value: !Sub ${applicationName}-lambda-ecr
 
   PipelineRole:
     Type: AWS::IAM::Role
