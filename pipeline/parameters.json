@@ -1,18 +1,14 @@
 [
     {
-        "ParameterKey": "GithubAuthToken",
-        "ParameterValue": ""
-    },
-    {
         "ParameterKey": "GithubBranch",
-        "ParameterValue": ""
+        "ParameterValue": "develop"
     },
     {
         "ParameterKey": "GithubAccount",
-        "ParameterValue": ""
+        "ParameterValue": "Leggerla"
     },
     {
-        "ParameterKey": "GithubRepository",
-        "ParameterValue": ""
+        "ParameterKey": "EcrRepositoryName",
+        "ParameterValue": "RemoveBackground "
     }
 ]
