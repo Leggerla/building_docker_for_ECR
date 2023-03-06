@@ -16,6 +16,10 @@ Parameters:
     Type: String
     Description: "Github repository name"
 
+  EcrRepositoryName:
+    Type: String
+    Description: "ECR repository name"
+
 Mappings:
   CodeBuildComputeTypeMap:
     develop:
@@ -82,7 +86,7 @@ Resources:
     Properties:
       Artifacts:
         Type: CODEPIPELINE
-      Description: "Codebuild project to push flask api image to ecr"
+      Description: "Codebuild project to push lambda image to ecr"
       Environment:
         ComputeType:
           !FindInMap [CodeBuildComputeTypeMap, !Ref GithubBranch, type]
@@ -94,7 +98,7 @@ Resources:
           - Name: AWS_ECR_REPOSITORY_URI
             Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${EcrRepository}
           - Name: IMAGE_REPO_NAME
-            Value: !Ref GithubRepository
+            Value: !Ref EcrRepositoryName
           - Name: IMAGE_TAG
             Value: "latest"
         Image: "aws/codebuild/standard:5.0"
@@ -105,10 +109,27 @@ Resources:
         Type: "CODEPIPELINE"
         BuildSpec: pipeline/buildspec.yml
 
-  EcrRepository:
+  LambdaECR:
     Type: AWS::ECR::Repository
+    Description: ECR to hold image of Lambda function
     Properties:
-      RepositoryName: !Ref GithubRepository
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      RepositoryName: !Ref EcrRepositoryName
+      RepositoryPolicyText:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ECRLambdaPolicy
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - "ecr:BatchGetImage"
+              - "ecr:GetDownloadUrlForLayer"
+      Tags:
+        - Key: Name
+          Value: !Sub ${applicationName}-lambda-ecr
 
   PipelineRole:
     Type: AWS::IAM::Role

@@ -3,12 +3,24 @@
         "ParameterKey": "GithubBranch",
         "ParameterValue": "develop"
     },
+
+    {
+        "ParameterKey": "GithubAuthToken",
+        "ParameterValue": "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"
+    },
+
     {
         "ParameterKey": "GithubAccount",
         "ParameterValue": "Leggerla"
     },
+
+    {
+        "ParameterKey": "GithubRepository",
+        "ParameterValue": "building_docker_for_ECR"
+    },
+
     {
         "ParameterKey": "EcrRepositoryName",
-        "ParameterValue": "RemoveBackground "
+        "ParameterValue": "RemoveBackground"
     }
 ]
